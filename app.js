@@ -7,7 +7,8 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , websocket = require('socket.io');
 
 var app = express();
 
@@ -31,7 +32,15 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+app.get('/chat', routes.chat);
 
-http.createServer(app).listen(app.get('port'), function(){
+server = http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
+});
+io = websocket.listen(server);
+io.sockets.on('connection', function(socket){
+  socket.emit('logme', { logdata: 'connected to server'});
+  socket.on('some event', function(data){
+    console.log('client event contacted server');
+  });
 });

@@ -1,0 +1,4 @@
+WebsocketChat
+=============
+
+Websocket chat implementation

@@ -38,9 +38,4 @@ server = http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 io = websocket.listen(server);
-io.sockets.on('connection', function(socket){
-  socket.emit('logme', { logdata: 'connected to server'});
-  socket.on('some event', function(data){
-    console.log('client event contacted server');
-  });
-});
+require('./sockets.js').start(io);

@@ -3,7 +3,7 @@
 sendmessage = function(msg, socket){
   
 }
-var socket = io.connect('http://webflow:3000');
+var socket = io.connect();
 socket.on('logme', function (data) {
   console.log(data);
   socket.emit('some event', { my: 'data' });
@@ -23,5 +23,6 @@ $('#saytext').on('keyup', function(e){
   if(e.keyCode == 13){
     $('.sendmessage').trigger('click');
   }
+$('.draggable').draggable();
 });
 });
